@@ -46,7 +46,14 @@ export const GET = withApiAuthRequired(async function list(req: NextRequest) {
   try {
     const { accessToken } = await getAccessToken();
 
+    // Extract limit and offset from query parameters
+    const { searchParams } = new URL(req.url);
+    const limit = searchParams.get("limit") || "4"; // Default to 4 if not provided
+    const offset = searchParams.get("offset") || "0"; // Default to 0 if not provided
+
     const apiUrl = new URL(`${process.env.EXTERNAL_API_BASE_URL}/shorten/`);
+    apiUrl.searchParams.append("limit", limit);
+    apiUrl.searchParams.append("offset", offset);
 
     const response = await fetch(apiUrl.toString(), {
       method: "GET",

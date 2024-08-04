@@ -13,30 +13,37 @@ interface UrlEntry {
 function Manage() {
   const [urls, setUrls] = useState<UrlEntry[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [limit, setLimit] = useState<number>(4); // Default limit
+  const [offset, setOffset] = useState<number>(0); // Default offset
 
-  useEffect(() => {
-    const fetchUrls = async () => {
-      try {
-        const response = await fetch("/api/shorten", {
+  const fetchUrls = async (limit: number, offset: number) => {
+    try {
+      const response = await fetch(
+        `/api/shorten?limit=${limit}&offset=${offset}`,
+        {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch URLs");
         }
+      );
 
-        const result: UrlEntry[] = await response.json();
-        setUrls(result);
-      } catch (error) {
-        setError((error as Error).message);
+      if (!response.ok) {
+        throw new Error("Failed to fetch URLs");
       }
-    };
 
-    fetchUrls();
-  }, []);
+      const result = await response.json();
+      setTotalCount(result.total);
+      setUrls(result.urls);
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
+  useEffect(() => {
+    fetchUrls(limit, offset);
+  }, [limit, offset]);
 
   const handleDelete = async (key: string) => {
     try {
@@ -57,6 +64,14 @@ function Manage() {
       );
     } catch (error) {
       setError((error as Error).message);
+    }
+  };
+
+  const handlePageChange = (direction: "next" | "prev") => {
+    if (direction === "next") {
+      setOffset((prevOffset) => prevOffset + limit);
+    } else if (direction === "prev") {
+      setOffset((prevOffset) => Math.max(prevOffset - limit, 0));
     }
   };
 
@@ -99,6 +114,26 @@ function Manage() {
           </li>
         ))}
       </ul>
+      <div className="mt-4 flex justify-between items-center">
+        <button
+          onClick={() => handlePageChange("prev")}
+          disabled={offset === 0}
+          className="p-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+          Previous
+        </button>
+        <span className="text-sm">
+          Showing {offset + 1} to {Math.min(offset + limit, totalCount)} of{" "}
+          {totalCount} URLs
+        </span>
+        <button
+          onClick={() => handlePageChange("next")}
+          disabled={offset + limit >= totalCount}
+          className="p-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
