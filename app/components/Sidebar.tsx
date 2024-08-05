@@ -28,7 +28,15 @@ export default function Sidebar() {
         <ul className="flex flex-col items-center">
           {isExpanded ? (
             <>
-              <li className="mb-4 w-full">
+              <li className="w-full mb-4">
+                <Link
+                  href="/dashboard"
+                  className="text-gray-800 dark:text-gray-200 hover:text-cyan-300 transition-colors"
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li className="w-full mb-4">
                 <Link
                   href="/dashboard/create"
                   className="text-gray-800 dark:text-gray-200 hover:text-cyan-300 transition-colors"
@@ -36,7 +44,7 @@ export default function Sidebar() {
                   Create
                 </Link>
               </li>
-              <li className="w-full">
+              <li className="w-full mb-4">
                 <Link
                   href="/dashboard/manage"
                   className="text-gray-800 dark:text-gray-200 hover:text-cyan-300 transition-colors"

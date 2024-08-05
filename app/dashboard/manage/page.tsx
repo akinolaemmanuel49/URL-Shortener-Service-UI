@@ -90,7 +90,17 @@ function Manage() {
             className="flex justify-between items-center p-2 border border-gray-300 rounded"
           >
             <div>
-              <div>Original URL: {url.original_url}</div>
+              <div>
+                Original URL:{" "}
+                <a
+                  href={url.original_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 underline"
+                >
+                  {url.original_url}
+                </a>
+              </div>
               <div>
                 Shortened URL:{" "}
                 <a
