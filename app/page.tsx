@@ -1,22 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { useEffect, useState } from "react";
 
 import PlaceHolderImage from "@/public/media/images/PlaceHolder.jpeg";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
-  const { user, error, isLoading } = useUser();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    if (user) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, [user]);
+  const { isAuthenticated } = useAuth();
 
   return (
     <div>

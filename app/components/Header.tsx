@@ -1,19 +1,9 @@
 "use client";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Header() {
-  const { user, error, isLoading } = useUser();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    if (user) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, [user]);
+  const { isAuthenticated } = useAuth();
 
   return (
     <header className="flex flex-col md:flex-row bg-white dark:bg-gray-800 justify-between p-4">
