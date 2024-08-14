@@ -38,9 +38,11 @@ export default function Home() {
                 <p className="text-center">
                   Login to begin shortening your URLs.
                 </p>
-                <div className="border-b-2 rounded-lg bg-gray-800 text-white text-center hover:text-cyan-600 px-12 py-4 font-mono font-bold text-lg w-80">
-                  <a href="/api/auth/login">Login</a>
-                </div>
+                <a href="/api/auth/login">
+                  <div className="border-b-2 rounded-lg bg-gray-800 text-white text-center hover:text-cyan-600 px-12 py-4 font-mono font-bold text-lg w-80">
+                    Login
+                  </div>
+                </a>
               </>
             ) : (
               <>
@@ -48,9 +50,11 @@ export default function Home() {
                   Hello <span className="font-bold">{user?.nickname}</span>{" "}
                   begin shortening your URLs.
                 </p>
-                <div className="border-b-2 rounded-lg bg-gray-800 text-white text-center hover:text-cyan-600 px-12 py-4 font-mono font-bold text-lg w-65">
-                  <a href="/dashboard">Go to Dashboard</a>
-                </div>
+                <a href="/dashboard">
+                  <div className="border-b-2 rounded-lg bg-gray-800 text-white text-center hover:text-cyan-600 px-12 py-4 font-mono font-bold text-lg w-65">
+                    Go to Dashboard
+                  </div>
+                </a>
               </>
             )}
           </div>
