@@ -4,6 +4,7 @@ import ErrorMessage from "@/app/components/ErrorMessage";
 import Loading from "@/app/components/Loading";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
+import TopFiveBarChart from "@/app/components/TopFiveBarChart";
 
 interface UrlEntry {
   original_url: string;
@@ -12,6 +13,7 @@ interface UrlEntry {
 
 function Dashboard() {
   const [urls, setUrls] = useState<UrlEntry[]>([]);
+  const [topHits, setTopHits] = useState<{ [key: string]: number }>({});
   const [error, setError] = useState<string | null>(null);
 
   const fetchLatestUrls = async () => {
@@ -34,12 +36,37 @@ function Dashboard() {
     }
   };
 
+  const fetchTopHits = async () => {
+    try {
+      const response = await fetch(`/api/metrics/top`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch top hits");
+      }
+
+      const result = await response.json();
+      setTopHits(result);
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
   useEffect(() => {
     fetchLatestUrls();
+    fetchTopHits();
   }, []);
 
   return (
     <div className="flex flex-col p-4">
+      {/* Render the bar chart */}
+      <div className="mt-8">
+        <TopFiveBarChart data={topHits} />
+      </div>
       <div className="font-mono font-extrabold text-xl mb-4">Dashboard</div>
       {error && (
         <div className="mt-4 p-2 bg-red-100 border border-red-200 rounded">
