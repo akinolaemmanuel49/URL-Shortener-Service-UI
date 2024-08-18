@@ -9,9 +9,6 @@ export const GET = withApiAuthRequired(async function getTopUrls(
 
     const apiUrl = `${process.env.EXTERNAL_API_BASE_URL}/metrics/top`
 
-    console.log(accessToken);
-    console.log(apiUrl);
-
     const response = await fetch(apiUrl, {
       method: "GET",
       headers: {
@@ -19,8 +16,6 @@ export const GET = withApiAuthRequired(async function getTopUrls(
         "Content-Type": "application/json",
       },
     });
-
-    console.log(response)
 
     if (!response.ok) {
       throw new Error("Failed to fetch top URLs");
