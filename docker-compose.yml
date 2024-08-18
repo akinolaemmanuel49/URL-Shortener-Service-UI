@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shortener_ui
+    env_file:
+      - ".env.local"
+    ports:
+      - "3000:3000"
+    networks:
+      - shorten-api_shared
+
+networks:
+  shorten-api_shared:
+    external: true
