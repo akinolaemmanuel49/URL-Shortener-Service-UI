@@ -16,7 +16,7 @@ function Dashboard() {
 
   const fetchLatestUrls = async () => {
     try {
-      const response = await fetch(`/api/shorten?limit=4&offset=0`, {
+      const response = await fetch(`/api/shorten?limit=3&offset=0`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ function Dashboard() {
           Error: {error}
         </div>
       )}
-      <div className="flex flex-wrap gap-4 mt-8">
+      <div className="flex flex-wrap gap-4 mt-4">
         {/* Container for TopFiveBarChart and UrlList */}
         <div className="flex-1 min-w-[300px]">
           <TopFiveBarChart data={topHits} />
