@@ -11,11 +11,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-interface TopFiveBarChartProps {
-  data: { [key: string]: number };
-}
+import { TopFiveBarChartProps } from "@/app/types/metrics";
 
-const TopFiveBarChart: React.FC<TopFiveBarChartProps> = ({ data }) => {
+export default function TopFiveBarChart({ data }: TopFiveBarChartProps) {
   const chartData = Object.keys(data).map((key) => ({
     name: key,
     hits: data[key],
@@ -27,17 +25,16 @@ const TopFiveBarChart: React.FC<TopFiveBarChartProps> = ({ data }) => {
         <BarChart
           data={chartData}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          barCategoryGap="10%"
+          barGap={2}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          {/* No need for defaultProps, just use props directly */}
           <YAxis />
           <Tooltip />
-          <Bar dataKey="hits" fill="#8884d8" />
+          <Bar dataKey="hits" fill="#E76F51" barSize={20} />
         </BarChart>
       </ResponsiveContainer>
     </div>
   );
-};
-
-export default TopFiveBarChart;
+}

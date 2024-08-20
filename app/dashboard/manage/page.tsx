@@ -1,14 +1,11 @@
 "use client";
 
-import ErrorMessage from "@/app/components/ErrorMessage";
-import Loading from "@/app/components/Loading";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 
-interface UrlEntry {
-  original_url: string;
-  shortened_url: string;
-}
+import ErrorMessage from "@/app/components/ErrorMessage";
+import Loading from "@/app/components/Loading";
+import { UrlEntry } from "@/app/types/urlEntry";
 
 function Manage() {
   const [urls, setUrls] = useState<UrlEntry[]>([]);

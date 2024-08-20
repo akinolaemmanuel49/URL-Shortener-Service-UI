@@ -1,15 +1,13 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { RiAlertFill } from "react-icons/ri";
 
-interface ErrorMessageProps {
-  children: ReactNode;
+import { ErrorMessageProps } from "@/app/types/error";
+
+export default function ErrorMessage({ children }: ErrorMessageProps) {
+  return (
+    <div style={{ color: "red", display: "flex", alignItems: "center" }}>
+      <RiAlertFill style={{ marginRight: "8px" }} />
+      {children}
+    </div>
+  );
 }
-
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ children }) => (
-  <div style={{ color: "red", display: "flex", alignItems: "center" }}>
-    <RiAlertFill style={{ marginRight: "8px" }} />
-    {children}
-  </div>
-);
-
-export default ErrorMessage;
