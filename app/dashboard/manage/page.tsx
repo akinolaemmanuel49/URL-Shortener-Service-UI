@@ -212,7 +212,7 @@ function Manage() {
         <button
           onClick={() => handlePageChange("next")}
           disabled={offset + limit >= totalCount}
-          className="p-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          className="p-2 bg-gray-500 text-white rounded hover:bg-gray-600 "
         >
           Next
         </button>
