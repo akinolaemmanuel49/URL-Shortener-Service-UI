@@ -52,6 +52,14 @@ export default function Sidebar() {
                   Manage
                 </Link>
               </li>
+              <li className="w-full mb-4">
+                <Link
+                  href="/dashboard/subscriptions"
+                  className="text-gray-800 dark:text-gray-200 hover:text-cyan-300 transition-colors"
+                >
+                  Subscriptions
+                </Link>
+              </li>
             </>
           ) : (
             <li className="flex justify-center items-center h-full">
